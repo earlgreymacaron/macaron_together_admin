@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "106137658409",
+    "firebase_url": "https://macaron-9eb97.firebaseio.com",
+    "project_id": "macaron-9eb97",
+    "storage_bucket": "macaron-9eb97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106137658409:android:c608d3c7ea930a91",
+        "android_client_info": {
+          "package_name": "com.cs496.macaron_together_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106137658409-e1feaml8q9qokegavec3o5inoalp5k2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhBpUPoHd8mYz7OUs60NidJRH9lnQIvqs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
