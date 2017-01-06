@@ -1,6 +1,8 @@
 package com.cs496.macaron_together_admin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,11 +44,22 @@ public class CurrentFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 loadEvents(view, dataSnapshot);
+                //dataSnapshot.
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+
+        FloatingActionButton add = (FloatingActionButton) view.findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddEventActivity.class);
+                startActivity(intent);
             }
         });
 

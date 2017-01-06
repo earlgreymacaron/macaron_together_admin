@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="새로운 공동구매 시작하기"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:textSize="30dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/a_title" />
+
+
+                <TextView
+                    android:text="가게 이름"
+                    android:paddingTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:id="@+id/a_name" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:textSize="20dp"
+                    android:id="@+id/b_name"/>
+
+                <TextView
+                    android:text="가게 주소"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:textSize="20sp"
+                    android:id="@+id/a_addr" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/b_addr"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:text="주문 시작 날짜"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingRight="10dp"
+                        android:id="@+id/a_start" />
+
+                    <Button
+                        android:text="날짜 선택"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:textSize="11dp"
+                        android:paddingRight="15dp"
+                        android:id="@+id/start_date" />
+
+                    <TextView
+                        android:text="시작 날짜를 선택해주세요"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="10dp"
+                        android:id="@+id/start_msg" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:text="주문 마감 날짜"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingRight="10dp"
+                        android:id="@+id/a_end" />
+                    <Button
+                        android:text="날짜 선택"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:paddingRight="15dp"
+                        android:textSize="11dp"
+                        android:id="@+id/end_date" />
+
+                    <TextView
+                        android:text="시작 날짜를 선택해주세요"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="10dp"
+                        android:id="@+id/end_msg" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:text="가격"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:paddingTop="15dp"
+                        android:id="@+id/a_price" />
+
+                    <EditText
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/b_price"
+                        android:layout_weight="0.40" />
+
+                    <TextView
+                        android:text="원/개"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="20dp"
+                        android:paddingTop="15dp"
+                        android:id="@+id/a_sub" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:text="맛 종류"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:paddingTop="15dp"
+                        android:id="@+id/a_flavor" />
+
+                    <EditText
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content"
+                        android:hint="콤마로 구분하기"
+                        android:textSize="10dp"
+                        android:id="@+id/b_flavor"
+                        android:layout_weight="0.40" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:text="참고사진"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingRight="20dp"
+                        android:id="@+id/a_photos" />
+
+                    <Button
+                        android:text="사진 선택"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:textSize="11dp"
+                        android:id="@+id/select_photos" />
+                </LinearLayout>
+
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="시작하기"
+                    android:id="@+id/complete"
+                    android:layout_gravity="center_horizontal"/>
+
+
+
+            </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.cs496.macaron_together_admin.MainActivity">
 
-    <TextView
-        android:text="alarm fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alarm_recycler"
@@ -17,4 +14,4 @@
     </android.support.v7.widget.RecyclerView>
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -93,9 +93,11 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
 
         try {
             JSONObject event = new JSONObject();
-            //event = event_list.getJSONObject(0);
+            event = event_list.getJSONObject(0);
             holder.mTextView.setText(event.getString("shop_name"));
             holder.mTextView2.setText(event.getString("deadline"));
+            holder.mTextView.setTypeface(App.myFont);
+            holder.mTextView2.setTypeface(App.myFont);
         } catch (JSONException e) {
             e.printStackTrace();
         }
