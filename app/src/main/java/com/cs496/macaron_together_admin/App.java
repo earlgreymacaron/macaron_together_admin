@@ -18,11 +18,12 @@ public class App extends Application {
     @Override
     public void onCreate() {
         myFont = Typeface.createFromAsset(getAssets(), "fonts/pen.ttf");
+        startService(new Intent(this, ServiceMonitor.class));
         super.onCreate();
 
     }
 
-    /*
+
     public static boolean isContainedInNotificationListeners(Context context)
     {
         String enabledListeners = Settings.Secure.getString(context.getContentResolver(), "enabled_notification_listeners");
@@ -31,7 +32,7 @@ public class App extends Application {
         Boolean b2 = enabledListeners.contains(context.getPackageName());
         return b1 && b2;
     }
-    */
+
 
 
 

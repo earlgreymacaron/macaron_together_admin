@@ -3,6 +3,7 @@
     package="com.cs496.macaron_together_admin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,16 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".AddEventActivity"></activity>
-
+        <service
+            android:name=".NotificationListener"
+            android:enabled="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service android:name=".ServiceMonitor"/>
     </application>
+
 
 </manifest>

@@ -26,13 +26,14 @@ import java.util.StringTokenizer;
  */
 public class NotificationListener extends NotificationListenerService {
 
-    private static final String TAG = "NotifiCollectorMonitor";
+    private static final String TAG = "NotificationListener";
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "onCreate() called");
-        //ensureCollectorRunning();
     }
 
     @Override
@@ -40,62 +41,13 @@ public class NotificationListener extends NotificationListenerService {
         Log.e(TAG, "onBind...");
         return super.onBind(intent);
     }
-/*
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
-    }
-
-    private void ensureCollectorRunning() {
-        ComponentName collectorComponent = new ComponentName(this, NotificationListenerService.class);
-        Log.e(TAG, "ensureCollectorRunning collectorComponent: " + collectorComponent);
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        boolean collectorRunning = false;
-        List<ActivityManager.RunningServiceInfo> runningServices = manager.getRunningServices(Integer.MAX_VALUE);
-        if (runningServices == null ) {
-            Log.w(TAG, "ensureCollectorRunning() runningServices is NULL");
-            return;
-        }
-        for (ActivityManager.RunningServiceInfo service : runningServices) {
-            if (service.service.equals(collectorComponent)) {
-                Log.e(TAG, "ensureCollectorRunning service - pid: " + service.pid + ", currentPID: " + android.os.Process.myPid() + ", clientPackage: " + service.clientPackage + ", clientCount: " + service.clientCount
-                        + ", clientLabel: " + ((service.clientLabel == 0) ? "0" : "(" + getResources().getString(service.clientLabel) + ")"));
-                if (service.pid == android.os.Process.myPid() /*&& service.clientCount > 0 && !TextUtils.isEmpty(service.clientPackage)) {
-                    collectorRunning = true;
-                }
-            }
-        }
-        if (collectorRunning) {
-            Log.e(TAG, "ensureCollectorRunning: collector is running");
-            return;
-        }
-        Log.e(TAG, "ensureCollectorRunning: collector not running, reviving...");
-        toggleNotificationListenerService();
-    }
-
-
-    private void toggleNotificationListenerService() {
-        Log.e(TAG, "toggleNotificationListenerService() called");
-        ComponentName thisComponent = new ComponentName(this, NotificationListenerService.class);
-        PackageManager pm = getPackageManager();
-        pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-  */
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         if (sbn == null) return;
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
+
         Notification mNotification=sbn.getNotification();
         Bundle extras = mNotification.extras;
         String from=null;

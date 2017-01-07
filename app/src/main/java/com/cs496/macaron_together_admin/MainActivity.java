@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*if (!App.isContainedInNotificationListeners(getApplicationContext()))
+        if (!App.isContainedInNotificationListeners(getApplicationContext()))
         {
             Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
             startActivity(intent);
-        }
+        }/*
         stopService(new Intent(this,NotificationListener.class));
         startService(new Intent(this, NotificationListener.class));
         Log.e("in App","startService Called");*/
