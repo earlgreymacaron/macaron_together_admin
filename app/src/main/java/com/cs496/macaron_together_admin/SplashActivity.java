@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
         TextView txt = (TextView) findViewById(R.id.splash_msg);
-       //txt.setTypeface(App.myFont);
+        txt.setTypeface(App.myFont);
 
 
         new Handler().postDelayed(new Runnable() {

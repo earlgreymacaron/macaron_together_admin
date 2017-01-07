@@ -13,18 +13,21 @@ public class EventData {
     private String end_date;
     private String price;
     private List<String> flavors;
-    //photo
+    private String photo;
+    private String status;
 
     public EventData() { }
 
     public EventData(String shop_name, String shop_addr, String start_date, String end_date,
-                     String price, List<String> flavors) {
+                     String price, List<String> flavors, String photo, String status) {
         this.shop_name = shop_name;
         this.shop_addr = shop_addr;
         this.start_date = start_date;
         this.end_date = end_date;
         this.price = price;
         this.flavors = flavors;
+        this.photo = photo;
+        this.status = status;
     }
 
     public String getShopName() {
@@ -73,8 +76,14 @@ public class EventData {
 
     public void setFlavors(List<String> f) { flavors = f; }
 
+    public String getPhotos() {
+        return photo;
+    }
 
+    public void setPhotos(String p) { photo = p; }
 
+    public String setStatus() { return status; }
 
+    public void setStatus(String s) { status = s; }
 
 }

@@ -2,7 +2,13 @@ package com.cs496.macaron_together_admin;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -14,6 +20,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,6 +37,7 @@ import java.util.List;
 public class AddEventActivity extends Activity {
     String startDate;
     String endDate;
+    String photo;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
@@ -61,11 +72,48 @@ public class AddEventActivity extends Activity {
             }
         });
 
+        //"사진 선택"
+        Button select_photo = (Button) findViewById(R.id.select_photos);
+        select_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent, 0); // RequestCode 0 = pick from gallery
+            }
+        });
+
+
         //"시작하기" Button
         Button complete = (Button) findViewById(R.id.complete);
         complete.setOnClickListener(completeOnClickListener);
 
     }
+
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {
+                try {
+                    Uri currImageURI = data.getData();
+                    TextView photo_msg = (TextView) findViewById(R.id.photo_msg);
+                    photo_msg.setText(currImageURI.toString());
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    Bitmap bitmap = BitmapFactory.decodeStream(
+                            getContentResolver().openInputStream(currImageURI), null, options);
+                    ByteArrayOutputStream ByteStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, ByteStream);
+                    byte[] b = ByteStream.toByteArray();
+                    photo = Base64.encodeToString(b, Base64.NO_WRAP);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
 
     //"시작하기" 버튼 눌렀을 때
     Button.OnClickListener completeOnClickListener = new View.OnClickListener() {
@@ -79,9 +127,9 @@ public class AddEventActivity extends Activity {
             EditText f = (EditText) findViewById(R.id.b_flavor);
             String flavor = f.getText().toString();
             List<String> flavors = Arrays.asList(flavor.split(","));
-           // String flavors[] = flavor.split(",");
-
-            EventData event = new EventData(shop_name,shop_addr,startDate,endDate,price,flavors);
+            String status = "ONGOING";
+            EventData event = new EventData
+                    (shop_name,shop_addr,startDate,endDate,price,flavors, photo, status);
             databaseReference.child("events").push().setValue(event);
             Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_SHORT).show();
 

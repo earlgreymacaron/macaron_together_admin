@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -43,7 +44,7 @@ import java.util.concurrent.ExecutionException;
 
 public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.ViewHolder> {
     private DatabaseReference events;
-    private JSONArray event_list;
+    private List<EventData> event_list;
     private Context context;
     private Fragment f;
 
@@ -67,7 +68,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventViewAdapter(FragmentActivity activity, Fragment f, JSONArray list) {
+    public EventViewAdapter(FragmentActivity activity, Fragment f, List<EventData> list) {
         this.context = activity;
         this.f = f;
         this.event_list = list;
@@ -91,24 +92,19 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        try {
-            JSONObject event = new JSONObject();
-            event = event_list.getJSONObject(0);
-            holder.mTextView.setText(event.getString("shop_name"));
-            holder.mTextView2.setText(event.getString("deadline"));
+            EventData event = event_list.get(position);
+            holder.mTextView.setText(event.getShopName());
+            holder.mTextView2.setText(event.getEndDate());
+            //holder.mImageView.setImageBitmap();
             holder.mTextView.setTypeface(App.myFont);
             holder.mTextView2.setTypeface(App.myFont);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-       // return 0;
-        return event_list.length();
+        return event_list.size();
     }
 
 }
