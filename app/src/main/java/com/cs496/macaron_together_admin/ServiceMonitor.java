@@ -25,15 +25,7 @@ public class ServiceMonitor extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate() called");
-        checkListening();
-    }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
-    }
-
-    private void checkListening() {
         ComponentName cc = new ComponentName(this, NotificationListener.class);
         Log.v(TAG, "checkListening collectorComponent: " + cc);
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -56,22 +48,21 @@ public class ServiceMonitor extends Service {
                 }
             }
         }
-        if (listening) {
-            //Log.d(TAG, "ensureCollectorRunning: listening");
-            return;
-        }
-        //Log.d(TAG, "ensureCollectorRunning: not listening, so toggle");
-        resetListener();
-    }
 
-    private void resetListener() {
-        Log.d(TAG, "resetListener() called");
+        if (listening) {return;}
+
+        Log.d(TAG, "reset Listener");
         ComponentName thisComponent = new ComponentName(this, NotificationListener.class);
         PackageManager pm = getPackageManager();
         pm.setComponentEnabledSetting(thisComponent,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         pm.setComponentEnabledSetting(thisComponent,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
     }
 
     @Override

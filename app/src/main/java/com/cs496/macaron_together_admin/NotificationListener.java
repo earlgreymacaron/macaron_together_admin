@@ -18,6 +18,10 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -47,30 +51,29 @@ public class NotificationListener extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         if (sbn == null) return;
 
+        Notification mNotification = sbn.getNotification();
+        Log.e(TAG, "notification: " + mNotification.toString());
+        //우리은행 입금이 맞으면 firebase에 서버에 보내기
+        if (sbn.getPackageName().equalsIgnoreCase("com.wr.alrim")) {
+            String extra = sbn.getNotification().extras.toString();
+            if (extra.contains("입금")) {
+                String extraList[] = extra.split("android.");
+                String amount = "no such field";
+                for (String s : extraList) {
+                    if (s.contains("text=[입금]")) {
+                        amount = s.trim();
+                    }
+                }
+                AlarmData info = new AlarmData("diposit", amount);
+                Log.e(TAG, "extras: " + extra.toString());
+                databaseReference.child("alarms").push().setValue(info);
+            }
 
-        Notification mNotification=sbn.getNotification();
-        Bundle extras = mNotification.extras;
-        String from=null;
-        String text=null;
-
-       // if(sbn.getPackageName().equalsIgnoreCase("com.wr.alrim")) {
-            String alarm = sbn.getNotification().tickerText.toString();
-            databaseReference.child("alarms").push().setValue(alarm);
-            alarm = sbn.getNotification().actions.toString();
-            databaseReference.child("alarms").push().setValue(alarm);
-            //alarm = sbn.getNotification().bigContentView.toString();
-            //databaseReference.child("alarms").push().setValue(alarm);
-            //alarm = sbn.getNotification().contentView.toString();
-            //databaseReference.child("alarms").push().setValue(alarm);
-            alarm = sbn.getNotification().extras.toString();
-            databaseReference.child("alarms").push().setValue(alarm);
-            //alarm = sbn.getNotification().headsUpContentView.toString();
-            //databaseReference.child("alarms").push().setValue(alarm);
-        //}
+        }
 
 
-        Log.e(TAG, "Notification Posted:\n");
-        Log.e(TAG, "Notification=" );
+        // Log.e(TAG, "Notification Posted:\n");
+        //Log.e(TAG, "Notification=" );
 
     }
 
