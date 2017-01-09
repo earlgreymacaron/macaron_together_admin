@@ -134,10 +134,9 @@ public class AddEventActivity extends Activity {
             EditText f = (EditText) findViewById(R.id.b_flavor);
             String flavor = f.getText().toString();
             List<String> flavors = Arrays.asList(flavor.split(","));
-            //String status = "ONGOING";
             EventData event = new EventData
-                    (shop_name,shop_addr,startDate,endDate,price,flavors, photo, "ONGOING");
-            databaseReference.child("events").push().setValue(event);
+                    (shop_name,shop_addr,startDate,endDate,price,flavors, photo, "진행중");
+            databaseReference.child("events").child(shop_name).setValue(event);
             Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_SHORT).show();
             onCreate(null);
         }

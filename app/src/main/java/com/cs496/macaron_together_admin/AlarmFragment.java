@@ -71,16 +71,6 @@ public class AlarmFragment extends Fragment {
         AlarmData data = snapshot.getValue(AlarmData.class);
         alarms.add(data);
 
-        /*
-        //Get data from Firebase
-        try {
-            JSONObject alarm = new JSONObject();
-            alarm.put("msg", "박예슬님이 7500원을 입금하였습니다.");
-            alarms.put(alarm);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
         //Set data on Recyclerview
         mRecyclerView = (RecyclerView) view.findViewById(R.id.alarm_recycler);
         mRecyclerView.setHasFixedSize(true);

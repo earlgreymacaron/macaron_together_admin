@@ -21,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +41,9 @@ import java.util.Random;
  */
 
 public class EventView extends Activity {
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    EventData event;
     TextView shop_name;
     TextView shop_addr;
     TextView price;
@@ -62,7 +68,7 @@ public class EventView extends Activity {
 
         //Get album to View
         Intent intent = getIntent();
-        EventData event = (EventData) intent.getSerializableExtra("EventData");
+        event = (EventData) intent.getSerializableExtra("EventData");
 
         //Setup page with data
         shop_name = (TextView) findViewById(R.id.c_name);
@@ -88,6 +94,7 @@ public class EventView extends Activity {
         end_date = (TextView) findViewById(R.id.end_msg);
         end_date.setText(event.getEndDate());
         status = (Button) findViewById(R.id.c_status);
+        status.setText(event.getStatus());
         status.setOnClickListener(statusOnClickListener);
         GregorianCalendar calendar = new GregorianCalendar();
         final int year = calendar.get(Calendar.YEAR);
@@ -117,10 +124,11 @@ public class EventView extends Activity {
 
     }
 
+    //클릭하면 바뀌는 진행상황 버튼
     Button.OnClickListener statusOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String state = status.getText().toString();
+            state = status.getText().toString();
             if (state.contains("진행중")) {
                 state = "배송중";
                 status.setText(state);
@@ -137,10 +145,20 @@ public class EventView extends Activity {
         }
     };
 
+    //"저장하기" 버튼을 눌렀을 때 - 각각 변경사항을 확인하고 변경되었으면 DB에 업데이트
     Button.OnClickListener saveOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            DatabaseReference branch = databaseReference.child("events").child(event.getShopName());
+            if (encoded != null)
+                branch.child("photos").setValue(encoded);
+            if (state != null)
+                branch.child("status").setValue(state);
+            if (startDate != null)
+                branch.child("startDate").setValue(startDate);
+            if (endDate != null)
+                branch.child("endDate").setValue(endDate);
+            Toast.makeText(getApplicationContext(), "수정되었습니다", Toast.LENGTH_SHORT).show();
         }
     };
 

@@ -43,17 +43,19 @@ public class CurrentFragment extends Fragment {
         eventsDB.child("events").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                EventData data = dataSnapshot.getValue(EventData.class);
+                events.add(data);
                 if (getView() != null) {loadEvents(getView(),dataSnapshot);}
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {    }
 
             @Override
             public void onCancelled(DatabaseError databaseError) { }
@@ -82,11 +84,8 @@ public class CurrentFragment extends Fragment {
         return view;
     }
 
-    private void loadEvents(View view, DataSnapshot snapshot) {
 
-        // Write a message to the database
-        EventData data = snapshot.getValue(EventData.class);
-        events.add(data);
+    private void loadEvents(View view, DataSnapshot snapshot) {
 
         //Set data on Recyclerview
         mRecyclerView = (RecyclerView) view.findViewById(R.id.event_recycler);

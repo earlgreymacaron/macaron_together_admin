@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
         public ImageView mImageView;
         public TextView mTextView;
         public TextView mTextView2;
+        public Button mButton;
         public CardView card;
 
         public ViewHolder(View view) {
@@ -65,6 +67,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
             mImageView = (ImageView) view.findViewById(R.id.image);
             mTextView = (TextView) view.findViewById(R.id.textview);
             mTextView2 = (TextView) view.findViewById(R.id.textview2);
+            mButton = (Button) view.findViewById(R.id.status);
             card = (CardView) view.findViewById(R.id.eventcard);
         }
     }
@@ -101,6 +104,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
             holder.mImageView.setImageBitmap(decodedByte);
             holder.mTextView.setTypeface(App.myFont);
             holder.mTextView2.setTypeface(App.myFont);
+            holder.mButton.setText(event.getStatus());
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
