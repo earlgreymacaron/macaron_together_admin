@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,11 @@ public class AddEventActivity extends Activity {
         setContentView(R.layout.activity_add_event);
 
         //Set typeface to all the text in the layout
+
+
+        //Change background transparency
+        Drawable alpha = findViewById(R.id.addeventlayout).getBackground();
+        alpha.setAlpha(90);
 
         //"시작 날짜 선택", "마감 날짜 선택" DatePicker Setup
         Button start = (Button) findViewById(R.id.start_date);
@@ -127,13 +134,12 @@ public class AddEventActivity extends Activity {
             EditText f = (EditText) findViewById(R.id.b_flavor);
             String flavor = f.getText().toString();
             List<String> flavors = Arrays.asList(flavor.split(","));
-            String status = "ONGOING";
+            //String status = "ONGOING";
             EventData event = new EventData
-                    (shop_name,shop_addr,startDate,endDate,price,flavors, photo, status);
+                    (shop_name,shop_addr,startDate,endDate,price,flavors, photo, "ONGOING");
             databaseReference.child("events").push().setValue(event);
             Toast.makeText(getApplicationContext(), "추가되었습니다", Toast.LENGTH_SHORT).show();
-
-
+            onCreate(null);
         }
     };
 
@@ -143,9 +149,9 @@ public class AddEventActivity extends Activity {
     private DatePickerDialog.OnDateSetListener listener1 = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String msg = year + "년 " + monthOfYear + 1 + "월 " + dayOfMonth +"일";
+            String msg = year + "/" + monthOfYear + 1 + "/" + dayOfMonth;
             if (dayOfMonth < 10)
-                msg = year + "년 " + monthOfYear + 1 + "월 0" + dayOfMonth + "일";
+                msg = year + "/" + monthOfYear + 1 + "/0" + dayOfMonth;
             startDate = msg;
             TextView start_msg = (TextView) findViewById(R.id.start_msg);
             start_msg.setText(msg);
@@ -156,9 +162,9 @@ public class AddEventActivity extends Activity {
     private DatePickerDialog.OnDateSetListener listener2 = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String msg = year + "년 " + monthOfYear + 1 + "월 " + dayOfMonth +"일";
+            String msg = year + "/" + monthOfYear + 1 + "/" + dayOfMonth;
             if (dayOfMonth < 10)
-                msg = year + "년 " + monthOfYear + 1 + "월 0" + dayOfMonth + "일";
+                msg = year + "/" + monthOfYear + 1 + "/0" + dayOfMonth;
             endDate = msg;
             TextView end_msg = (TextView) findViewById(R.id.end_msg);
             end_msg.setText(msg);

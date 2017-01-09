@@ -1,12 +1,13 @@
 package com.cs496.macaron_together_admin;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by q on 2017-01-06.
  */
 
-public class EventData {
+public class EventData implements Serializable {
     private String shop_name;
     private String shop_addr;
     private String start_date;
@@ -82,7 +83,7 @@ public class EventData {
 
     public void setPhotos(String p) { photo = p; }
 
-    public String setStatus() { return status; }
+    public String getStatus() { return status; }
 
     public void setStatus(String s) { status = s; }
 

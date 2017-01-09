@@ -17,13 +17,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * Created by q on 2017-01-03.
  */
 
 public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.ViewHolder> {
     private DatabaseReference events;
-    private JSONArray alarm_list;
+    private List<AlarmData> alarm_list;
     private Context context;
     private Fragment f;
 
@@ -40,12 +42,13 @@ public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.View
         public ViewHolder(View view) {
             super(view);
             mTextView = (TextView) view.findViewById(R.id.alarm_msg);
+            mImageView = (ImageView) view.findViewById(R.id.alarmicon);
             card = (CardView) view.findViewById(R.id.alarm_card);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AlarmViewAdapter(FragmentActivity activity, Fragment f, JSONArray list) {
+    public AlarmViewAdapter(FragmentActivity activity, Fragment f, List<AlarmData> list) {
         this.context = activity;
         this.f = f;
         this.alarm_list = list;
@@ -69,21 +72,34 @@ public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.View
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        try {
-            JSONObject alarm = alarm_list.getJSONObject(0);
-            holder.mTextView.setText(alarm.getString("msg"));
-            holder.mTextView.setTypeface(App.myFont);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        AlarmData alarm = alarm_list.get(position);
+        if (alarm.getType().contains("diposit")) {
+            String info[] = alarm.getContent().replace(",","").split(" ");
+            String text = info[3] + " "+ info[4] + "에 " + info[1] + "을 입금하였습니다.";
+            holder.mTextView.setText(text);
+            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_diposit));
+        } else if (alarm.getType().contains("register")) {
+            holder.mTextView.setText(alarm.getContent());
+            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_newperson));
+        } else if (alarm.getType().contains("buyer")) {
+            holder.mTextView.setText(alarm.getContent());
+            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_cart));
+
+        } else if (alarm.getType().contains("bulletin")) {
+            holder.mTextView.setText(alarm.getContent());
+            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_newbulletin));
+
         }
+        holder.mTextView.setTypeface(App.myFont);
+
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-       // return 0;
-        return alarm_list.length();
+
+        return alarm_list.size();
     }
 
 }

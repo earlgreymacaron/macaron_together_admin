@@ -43,7 +43,7 @@ public class CurrentFragment extends Fragment {
         eventsDB.child("events").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                loadEvents(getView(),dataSnapshot);
+                if (getView() != null) {loadEvents(getView(),dataSnapshot);}
             }
 
             @Override
@@ -87,19 +87,7 @@ public class CurrentFragment extends Fragment {
         // Write a message to the database
         EventData data = snapshot.getValue(EventData.class);
         events.add(data);
-/*
-        //Get data from Firebase
-        try {
-         //   String json = eventsDB.get();
-          //  events = new JSONArray(json);
-            JSONObject event = new JSONObject();
-            event.put("shop_name", "Cafe de Fran");
-            event.put("deadline","2016-02-02");
-            events.put(event);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-*/
+
         //Set data on Recyclerview
         mRecyclerView = (RecyclerView) view.findViewById(R.id.event_recycler);
         mRecyclerView.setHasFixedSize(true);

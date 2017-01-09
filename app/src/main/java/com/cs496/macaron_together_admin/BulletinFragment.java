@@ -19,7 +19,6 @@ import org.json.JSONObject;
 
 public class BulletinFragment extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

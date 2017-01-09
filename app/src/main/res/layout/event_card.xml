@@ -10,16 +10,18 @@
         android:id="@+id/eventcard"
         card:cardCornerRadius="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="300dp">
 
             <ImageView
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="230dp"
                 android:src="@drawable/cafedefran"
                 android:id="@+id/image"/>
 
@@ -46,6 +48,19 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="진행중"
+                android:background="#f9cd97"
+                android:padding="1dp"
+                android:textSize="15dp"
+                android:layout_marginEnd="13dp"
+                android:id="@+id/status"
+                android:stateListAnimator="@null"
+                android:layout_marginTop="245dp"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 

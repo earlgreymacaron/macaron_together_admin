@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity
         Log.e("in App","startService Called");*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // toolbar.setTitleTextColor(#ffc08B);
+
         setSupportActionBar(toolbar);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -89,15 +91,24 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
 
-            EventData event = event_list.get(position);
+            final EventData event = event_list.get(position);
+            String date = event.getStartDate() + " ~ " + event.getEndDate();
+            byte[] decodedString = Base64.decode(event.getPhotos(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.mTextView.setText(event.getShopName());
-            holder.mTextView2.setText(event.getEndDate());
-            //holder.mImageView.setImageBitmap();
+            holder.mTextView2.setText(date);
+            holder.mImageView.setImageBitmap(decodedByte);
             holder.mTextView.setTypeface(App.myFont);
             holder.mTextView2.setTypeface(App.myFont);
+            holder.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, EventView.class);
+                    intent.putExtra("EventData", (Serializable) event);
+                    context.startActivity(intent);
+                }
+            });
 
     }
 
