@@ -21,7 +21,6 @@ public class App extends Application {
         myFont = Typeface.createFromAsset(getAssets(), "fonts/pen.ttf");
         startService(new Intent(this, ServiceMonitor.class));
         super.onCreate();
-
     }
 
 

@@ -29,6 +29,8 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".EventView"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".PostView"
+            android:theme="@style/AppTheme.PopupTheme"></activity>
         <service
             android:name=".NotificationListener"
             android:enabled="true"

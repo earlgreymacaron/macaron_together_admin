@@ -1,6 +1,7 @@
 package com.cs496.macaron_together_admin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -12,21 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by q on 2017-01-03.
  */
 
-public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.ViewHolder> {
+public class BoardViewAdapter extends RecyclerView.Adapter<BoardViewAdapter.ViewHolder> {
     private DatabaseReference events;
-    private List<AlarmData> alarm_list;
+    private List<PostData> posts_list;
     private Context context;
     private Fragment f;
 
@@ -35,32 +32,30 @@ public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.View
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public ImageView mImageView;
         public TextView mTextView;
         public TextView mTextView2;
         public CardView card;
 
         public ViewHolder(View view) {
             super(view);
-            mTextView = (TextView) view.findViewById(R.id.alarm_msg);
-            mImageView = (ImageView) view.findViewById(R.id.alarmicon);
-            card = (CardView) view.findViewById(R.id.alarm_card);
+            mTextView = (TextView) view.findViewById(R.id.d_title);
+            mTextView2 = (TextView) view.findViewById(R.id.d_author);
+            card = (CardView) view.findViewById(R.id.post_item);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AlarmViewAdapter(FragmentActivity activity, Fragment f, List<AlarmData> list) {
+    public BoardViewAdapter(FragmentActivity activity, Fragment f, List<PostData> list) {
         this.context = activity;
         this.f = f;
-        this.alarm_list = list;
-        //this.events = events;
+        this.posts_list = list;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public AlarmViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BoardViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
@@ -73,25 +68,18 @@ public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.View
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        AlarmData alarm = alarm_list.get(position);
-        if (alarm.getType().contains("diposit")) {
-            String info[] = alarm.getContent().replace(",","").split(" ");
-            String text = "이세연님이 " + info[3] + " "+ info[4] + "에 " + info[1] + "을 입금하였습니다.";
-            holder.mTextView.setText(text);
-            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_diposit));
-        } else if (alarm.getType().contains("register")) {
-            holder.mTextView.setText(alarm.getContent());
-            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_newperson));
-        } else if (alarm.getType().contains("order")) {
-            holder.mTextView.setText(alarm.getContent());
-            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_cart));
-
-        } else if (alarm.getType().contains("bulletin")) {
-            holder.mTextView.setText(alarm.getContent());
-            holder.mImageView.setImageDrawable(context.getDrawable(R.drawable.ic_newbulletin));
-
-        }
+        final PostData post = posts_list.get(position);
+        holder.mTextView.setText(post.getTitle());
+        holder.mTextView2.setText(post.getAuthor());
         holder.mTextView.setTypeface(App.myFont);
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PostView.class);
+                intent.putExtra("post", (Serializable) post);
+                context.startActivity(intent);
+            }
+        });
 
 
     }
@@ -99,8 +87,7 @@ public class AlarmViewAdapter extends RecyclerView.Adapter<AlarmViewAdapter.View
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-
-        return alarm_list.size();
+        return posts_list.size();
     }
 
 }

@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/transparent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="bulletin fragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:background="#99ffffff"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <TextView
+            android:text="글 제목"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="312dp"
+            android:layout_weight="0.15"
+            android:textColor="#000000"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+
+        <TextView
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:text="글쓴이"
+            android:gravity="right"
+            android:layout_weight="0.85"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/current_recycler"
+        android:id="@+id/board_recycler"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:background="@android:color/transparent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 

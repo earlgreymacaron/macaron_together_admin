@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/postview"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/e_title"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:padding="10dp"
+        android:background="#77b08cda"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="저번에 주문한 마카롱 너무 맛있어요!"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#44b08cda"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/e_timestamp"
+            android:textSize="13dp"
+            android:text="등록시간: 2017년 1월 11일"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textSize="13dp"
+            android:id="@+id/e_author"
+            android:text="글쓴이: 박예슬"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/e_body"
+        android:background="#22d1b2ea"
+        android:padding="10dp"
+        android:text="저번에 카페드프랑에서 주문한거 너무 맛있었어요!언제 또 주문 할 수 있나요?!"/>
+
+</LinearLayout>
